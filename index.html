@@ -3,55 +3,134 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registration Form</title>
-    <script>
-        function saveData(event) {
-            event.preventDefault(); // Prevent the form from submitting and refreshing the page
-
-            // Get the form values
-            var name = document.getElementById("name").value;
-            var surname = document.getElementById("surname").value;
-            var age = document.getElementById("age").value;
-            var email = document.getElementById("email").value;
-
-            // Display the values on the page
-            document.getElementById("output").innerHTML =
-                "<h3>Registration Details:</h3>" +
-                "<p><strong>Name:</strong> " + name + "</p>" +
-                "<p><strong>Surname:</strong> " + surname + "</p>" +
-                "<p><strong>Age:</strong> " + age + "</p>" +
-                "<p><strong>Email:</strong> " + email + "</p>";
+    <title>Form to Table</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
         }
-    </script>
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        form {
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            margin: auto;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+        }
+        input[type="text"],
+        input[type="email"],
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        input[type="submit"] {
+            background-color: #5cb85c;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+        }
+        input[type="submit"]:hover {
+            background-color: #4cae4c;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+            color: #333;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+    </style>
 </head>
-<body style="font-family: Arial, sans-serif; background-color: #f2f2f2; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0;">
+<body>
 
-    <div style="background-color: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); width: 300px;">
-        <h2 style="text-align: center; color: #333;">Registration Form</h2>
-        <form onsubmit="saveData(event)" method="post">
-            <label for="name" style="display: block; margin-bottom: 5px;">Name:</label>
-            <input type="text" id="name" name="name" required 
-                   style="width: 100%; padding: 8px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px;">
+<h1>User Information Form</h1>
+<form id="userForm">
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" required>
+    
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required>
+    
+    <label for="age">Age:</label>
+    <input type="number" id="age" name="age" required>
+    
+    <input type="submit" value="Submit">
+</form>
 
-            <label for="surname" style="display: block; margin-bottom: 5px;">Surname:</label>
-            <input type="text" id="surname" name="surname" required 
-                   style="width: 100%; padding: 8px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px;">
+<h2>Entered Data</h2>
+<table id="dataTable">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Age</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- Data will be inserted here -->
+    </tbody>
+</table>
 
-            <label for="age" style="display: block; margin-bottom: 5px;">Age:</label>
-            <input type="number" id="age" name="age" required 
-                   style="width: 100%; padding: 8px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px;">
+<script>
+    document.getElementById('userForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent the form from submitting
 
-            <label for="email" style="display: block; margin-bottom: 5px;">Email:</label>
-            <input type="email" id="email" name="email" required 
-                   style="width: 100%; padding: 8px; margin-bottom: 20px; border: 1px solid #ccc; border-radius: 4px;">
+        // Get form values
+        const name = document.getElementById('name').value;
+        const email = document.getElementById('email').value;
+        const age = document.getElementById('age').value;
 
-            <button type="submit" style="width: 100%; padding: 10px; background-color: #4CAF50; color: white; border: none; border-radius: 4px; cursor: pointer;">
-                Register
-            </button>
-        </form>
+        // Create a new row in the table
+        const table = document.getElementById('dataTable').getElementsByTagName('tbody')[0];
+        const newRow = table.insertRow();
 
-        <div id="output" style="margin-top: 20px;"></div>
-    </div>
+        // Insert new cells for name, email, and age
+        const nameCell = newRow.insertCell(0);
+        const emailCell = newRow.insertCell(1);
+        const ageCell = newRow.insertCell(2);
+
+        // Add data to the new cells
+        nameCell.textContent = name;
+        emailCell.textContent = email;
+        ageCell.textContent = age;
+
+        // Clear the form fields
+        document.getElementById('userForm').reset();
+    });
+</script>
 
 </body>
 </html>
