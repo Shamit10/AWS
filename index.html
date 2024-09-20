@@ -4,12 +4,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registration Form</title>
+    <script>
+        function saveData(event) {
+            event.preventDefault(); // Prevent the form from submitting and refreshing the page
+
+            // Get the form values
+            var name = document.getElementById("name").value;
+            var surname = document.getElementById("surname").value;
+            var age = document.getElementById("age").value;
+            var email = document.getElementById("email").value;
+
+            // Display the values on the page
+            document.getElementById("output").innerHTML =
+                "<h3>Registration Details:</h3>" +
+                "<p><strong>Name:</strong> " + name + "</p>" +
+                "<p><strong>Surname:</strong> " + surname + "</p>" +
+                "<p><strong>Age:</strong> " + age + "</p>" +
+                "<p><strong>Email:</strong> " + email + "</p>";
+        }
+    </script>
 </head>
 <body style="font-family: Arial, sans-serif; background-color: #f2f2f2; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0;">
 
     <div style="background-color: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); width: 300px;">
         <h2 style="text-align: center; color: #333;">Registration Form</h2>
-        <form action="#" method="post">
+        <form onsubmit="saveData(event)" method="post">
             <label for="name" style="display: block; margin-bottom: 5px;">Name:</label>
             <input type="text" id="name" name="name" required 
                    style="width: 100%; padding: 8px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px;">
@@ -30,6 +49,8 @@
                 Register
             </button>
         </form>
+
+        <div id="output" style="margin-top: 20px;"></div>
     </div>
 
 </body>
